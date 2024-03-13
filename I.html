@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+</head>
+<body>
+    <!--hien thi web-->
+    <h1>Bai 1 cua Minh</h1>
+    <input type="submit" value="Bài toán đếm" onclick="hehe()">
+    <div id="kq"></div>
+    <!--xu ly thuat toan-->
+    <script>
+        function hehe() {
+            // Số cách đặt bi vào hộp con
+            const ways = [0, 8, 28, 56, 70];
+
+            // Tổng số cách đặt bi vào hộp con
+            const totalWays = ways.reduce((a, b) => a + b, 0);
+
+            console.log(`Số cách đặt bi vào hộp con là: ${totalWays}`);
+            document.getElementById("kq").innerHTML = "Số cách đặt bi vào hộp con là:  "+ totalWays;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+function dijkstra(graph, source) {
+        const S = new Set(); 
+        const D = new Map(); 
+        for (const vertex of graph.vertices) {
+          D.set(vertex, Infinity);
+        }
+        D.set(source, 0);
+      
+        while (S.size < graph.vertices.length) {
+    
+          let u = null;
+          let minDist = Infinity;
+          for (const vertex of graph.vertices) {
+            if (!S.has(vertex) && D.get(vertex) < minDist) {
+              minDist = D.get(vertex);
+              u = vertex;
+            }
+          }
+      
+          S.add(u);
+      
+          for (const neighbor of graph.neighbors(u)) {
+            if (!S.has(neighbor)) {
+              const newDist = D.get(u) + graph.getWeight(u, neighbor);
+              if (newDist < D.get(neighbor)) {
+                D.set(neighbor, newDist);
+              }
+            }
+          }
+        }
+      
+        return D;
+      }
+      
+      const graph = {
+        vertices: ["A", "B", "C", "D", "E"],
+        edges: [
+          ["A", "B", 1],
+          ["A", "C", 4],
+          ["B", "D", 2],
+          ["C", "D", 5],
+          ["C", "E", 1],
+        ],
+      };
+      
+      const source = "A";
+      const distances = dijkstra(graph, source);
+      
+      console.log(distances);
+    

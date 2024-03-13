@@ -1,0 +1,82 @@
+class Edge {
+      constructor(source, destination, weight) {
+        this.source = source;
+        this.destination = destination;
+        this.weight = weight;
+      }
+    }
+    
+    class DisjointSet {
+      constructor(n) {
+        this.parent = new Array(n);
+        this.rank = new Array(n);
+        for (let i = 0; i < n; i++) {
+          this.parent[i] = i;
+          this.rank[i] = 0;
+        }
+      }
+    
+      find(u) {
+        if (u === this.parent[u]) {
+          return u;
+        }
+        return (this.parent[u] = this.find(this.parent[u]));
+      }
+    
+      union(u, v) {
+        const uRoot = this.find(u);
+        const vRoot = this.find(v);
+        if (uRoot === vRoot) {
+          return;
+        }
+        if (this.rank[uRoot] < this.rank[vRoot]) {
+          this.parent[uRoot] = vRoot;
+        } else if (this.rank[uRoot] > this.rank[vRoot]) {
+          this.parent[vRoot] = uRoot;
+        } else {
+          this.parent[vRoot] = uRoot;
+          this.rank[uRoot]++;
+        }
+      }
+    }
+    
+    function kruskalMST(graph) {
+      const numVertices = graph.length;
+      const edges = [];
+      for (let i = 0; i < numVertices; i++) {
+        for (let j = i + 1; j < numVertices; j++) {
+          edges.push(new Edge(i, j, graph[i][j]));
+        }
+      }
+      edges.sort((a, b) => a.weight - b.weight);
+    
+      const dset = new DisjointSet(numVertices);
+    
+      const mst = [];
+    
+      for (const edge of edges) {
+        const u = edge.source;
+        const v = edge.destination;
+        const uRoot = dset.find(u);
+        const vRoot = dset.find(v);
+    
+        if (uRoot !== vRoot) {
+          mst.push(edge);
+          dset.union(uRoot, vRoot);
+        }
+      }
+    
+      return mst;
+    }
+    const graph = [
+      [0, 10, 20, 0],
+      [10, 0, 30, 50],
+      [20, 30, 0, 15],
+      [0, 50, 15, 0],
+    ];
+    const mst = kruskalMST(graph);
+    for (const edge of mst) {
+      console.log(
+        `Cạnh ${edge.source} - ${edge.destination} với trọng số ${edge.weight}`
+      );
+    }

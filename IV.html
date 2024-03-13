@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+</head>
+<body>
+    <!--hien thi web-->
+    <h1>Bai 4 cua Minh</h1>
+    <input type="submit" value="Ket qua" onclick="maximizeDays()">
+    <div id="kq"></div>
+    <!--xu ly thuat toan-->
+    <script>
+        function maximizeDays(machineRequests) {
+    // Sắp xếp yêu cầu theo thứ tự tăng dần của ngày
+    machineRequests.sort((a, b) => a.date - b.date);
+
+    const usedDays = new Set(); // Các ngày đã sử dụng máy
+    let totalDays = 0; // Tổng số ngày sử dụng máy
+
+    for (const request of machineRequests) {
+        let canAccept = true;
+        for (let day = request.startDate; day <= request.endDate; day++) {
+            if (usedDays.has(day)) {
+                canAccept = false;
+                break;
+            }
+        }
+
+        if (canAccept) {
+            // Chấp nhận yêu cầu và đánh dấu các ngày đã sử dụng
+            for (let day = request.startDate; day <= request.endDate; day++) {
+                usedDays.add(day);
+            }
+            totalDays += request.endDate - request.startDate + 1;
+        }
+    }
+
+    return totalDays;
+}
+
+// Ví dụ sử dụng
+const requests = [
+    { customer: 'A', startDate: 1, endDate: 5 },
+    { customer: 'B', startDate: 3, endDate: 7 },
+    { customer: 'C', startDate: 6, endDate: 10 }
+];
+
+console.log(maximizeDays(requests)); // Kết quả: 10
+    </script>

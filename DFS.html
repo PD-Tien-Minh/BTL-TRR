@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+</head>
+<body>
+    <!--hien thi web-->
+    <h1>DFS cua Minh</h1>
+    <input type="submit" value="DFS" onclick="DFS()">
+    <div id="DFS"></div>
+    <!--xu ly thuat toan-->
+    <script>
+        function DFS(graph, start) {
+    let stack = [start];
+    let visited = new Set();
+
+
+    while (stack.length > 0) {
+        let vertex = stack.pop();
+
+
+        if (!visited.has(vertex)) {
+            visited.add(vertex);
+
+
+            let neighbors = graph[vertex];
+            for (let neighbor of neighbors) {
+                if (!visited.has(neighbor)) {
+                    stack.push(neighbor);
+                }
+            }
+        }
+    }
+
+
+    return Array.from(visited);
+}
+
+
+let graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+};
+
+
+console.log(DFS(graph, 'A'));  // Output: ['A', 'C', 'F', 'E', 'B', 'D']
+    </script>

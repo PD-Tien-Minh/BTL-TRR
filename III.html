@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+</head>
+<body>
+    <!--hien thi web-->
+    <h1>Bai 3 cua Minh</h1>
+    <input type="submit" value="Liet Ke" onclick="haha()">
+    <div id="kq"></div>
+    <!--xu ly thuat toan-->
+    <script>
+        function haha() {
+            function generatePowerSet(set) {
+                const powerSet = [[]];
+
+                for (const element of set) {
+                    const currentSubsetCount = powerSet.length;
+                    for (let i = 0; i < currentSubsetCount; i++) {
+                        const newSubset = [...powerSet[i], element];
+                        powerSet.push(newSubset);
+                    }
+                }
+                return powerSet;
+            }
+
+            const originalSet = ['a', 'b', 'c'];
+            const allSubsets = generatePowerSet(originalSet);
+
+            console.log('Tất cả các tập hợp con của tập {a, b, c}:');
+            document.getElementById("kq").innerHTML = 'Tất cả các tập hợp con của tập {a, b, c} là: <br>'
+            for (const subset of allSubsets) {
+                document.getElementById("kq").innerHTML += '{ '+ subset +' }'+ "<br>"
+            }
+            console.log(allSubsets);
+        }
+</script>
+</body>
+</html>
+    </script>
+</body>
+</html>
